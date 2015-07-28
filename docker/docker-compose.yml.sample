@@ -1,0 +1,17 @@
+web:
+  image: ou/php-nginx-mongo
+  ports:
+    - "8080:80"
+  environment:
+    APPLICATION_ENV: development
+  command: sh /init.sh
+  volumes:
+    - ./web-files/init.sh:/init.sh
+    - ./web-files/supervisord.conf:/supervisord.conf
+    - ./web-files/vhost.conf:/etc/nginx/conf.d/vhost.conf
+    - ./web-files/www.conf:/etc/php-fpm.d/www.conf
+    - ./web-files/php-development.ini:/etc/php.d/php-development.ini
+    - ./../:/data/project
+    - ./../log/nginx:/var/log/nginx
+    - ./../log/php-fpm:/var/log/php-fpm
+    - /data/db
